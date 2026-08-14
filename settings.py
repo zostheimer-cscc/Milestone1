@@ -27,16 +27,18 @@ class Settings:
         self.FPS = 60
         self.bg_file = BASE_PATH / 'Assets' / 'images' / 'Starbasesnow.png'
 
-        self.ship_file = BASE_PATH / 'Assets' / 'images' / 'ship2(no bg).png'
-        self.ship_w = 40
-        self.ship_h = 60
+        self.ship_file = BASE_PATH / 'Assets' / 'images' / 'ship2_no_bg_.png'
+        self.ship_w = 60
+        self.ship_h = 40
         self.ship_speed = 5
+        #ship is wider than tall now since it points right
 
         self.bullet_file = BASE_PATH / 'Assets' / 'images' / 'laserBlast.png'
         self.laser_sound = BASE_PATH / 'Assets' / 'sound' / 'laser.mp3'
         self.bullet_speed = 7
-        self.bullet_w = 25
-        self.bullet_h = 80
+        self.bullet_w = 80
+        self.bullet_h = 25
+        #bullet is wider than tall since it flies sideways
         self.bullet_amount = 5
 
         self.alien_file = BASE_PATH / 'Assets' / 'images' / 'enemy_4.png'
