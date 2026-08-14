@@ -1,5 +1,5 @@
 """
-Program Name: Alien Invasion Ship
+Program Name: Alien Invasion - Ship
 
 Author: Zachary Ostheimer
 
@@ -7,7 +7,7 @@ Purpose: This module controls the player ship on the left edge
 
 Starter Code: Based on the in class Alien Invasion tutorial
 
-Date: 08/12/2026
+Date: 08/14/2026
 """
 
 import pygame
@@ -33,7 +33,8 @@ class Ship:
             self.image,
             (self.settings.ship_w, self.settings.ship_h)
         )
-
+        self.image = pygame.transform.rotate(self.image, -90)
+        
         self.rect = self.image.get_rect()
         self.rect.midleft = self.boundaries.midleft
         #start the ship centered on the left edge

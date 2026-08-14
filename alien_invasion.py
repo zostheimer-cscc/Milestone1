@@ -1,5 +1,5 @@
 """
-Program Name: Alien Invasion Main
+Program Name: Alien Invasion - Main
 
 Author: Zachary Ostheimer
 
@@ -7,7 +7,7 @@ Purpose: This program runs the main game loop for Alien Invasion
 
 Starter Code: Based on the in class Alien Invasion tutorial
 
-Date: 08/12/2026
+Date: 08/14/2026
 """
 
 import sys
@@ -31,9 +31,11 @@ class AlienInvasion:
         pygame.display.set_caption(self.settings.name)
 
         self.bg = pygame.image.load(self.settings.bg_file)
-        self.bg = pygame.transform.scale(self.bg,
+        self.bg = pygame.transform.scale(
+            self.bg,
             (self.settings.screen_w, self.settings.screen_h)
         )
+        #scale the background to fill the screen
 
         self.running = True
         self.clock = pygame.time.Clock()
@@ -45,19 +47,15 @@ class AlienInvasion:
         self.ship = Ship(self, Arsenal(self))
 
     def run_game(self) -> None:
-        # Game loop
+        #run the main game loop until the player quits
         while self.running:
             self._check_events()
             self.ship.update()
             self._update_screen()
             self.clock.tick(self.settings.FPS)
 
-    def _update_screen(self) -> None:
-        self.screen.blit(self.bg, (0,0))
-        self.ship.draw()
-        pygame.display.flip()
-
     def _check_events(self) -> None:
+        #watch for quit, key press, and key release events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -68,13 +66,8 @@ class AlienInvasion:
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
 
-    def _check_keyup_events(self, event) -> None:
-        if event.key == pygame.K_UP or event.key == pygame.K_w:
-            self.ship.moving_up = False
-        elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-            self.ship.moving_down = False
-
-    def _check_keydown_events(self, event) -> None:
+    def _check_keydown_events(self, event: pygame.event.Event) -> None:
+        #start moving or fire when a key is pressed
         if event.key == pygame.K_UP or event.key == pygame.K_w:
             self.ship.moving_up = True
         elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
@@ -83,11 +76,23 @@ class AlienInvasion:
             if self.ship.fire():
                 self.laser_sound.play()
                 self.laser_sound.fadeout(250)
-
         elif event.key == pygame.K_q:
             self.running = False
             pygame.quit()
             sys.exit()
+
+    def _check_keyup_events(self, event: pygame.event.Event) -> None:
+        #stop moving when a movement key is released
+        if event.key == pygame.K_UP or event.key == pygame.K_w:
+            self.ship.moving_up = False
+        elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+            self.ship.moving_down = False
+
+    def _update_screen(self) -> None:
+        #draw the background and ship, then flip the display
+        self.screen.blit(self.bg, (0, 0))
+        self.ship.draw()
+        pygame.display.flip()
 
 
 if __name__ == '__main__':
